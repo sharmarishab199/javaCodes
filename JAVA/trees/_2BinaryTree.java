@@ -5,7 +5,8 @@ public class _2BinaryTree {
 
         // 1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
 
-        //BinaryTreeNode<Integer> root = takeInputLevelWise();
+        BinaryTreeNode<Integer> root = takeInputLevelWise();
+        //printLevelWise(root);
         // printLevelWise(root);
         // System.out.println(countNodes(root));
         // System.out.println(sumNodes(root));
@@ -27,10 +28,10 @@ public class _2BinaryTree {
         // pair ans=diameterBetter(root);
         // System.out.println(ans.diameter);
 
-        int pre[]={1,2,4,5,3,6};
-        int in[]={4,2,5,1,6,3};
-        BinaryTreeNode<Integer> root=buildTree(pre,in);
-        print(root);
+        // int pre[]={1,2,4,5,3,6};
+        // int in[]={4,2,5,1,6,3};
+        // BinaryTreeNode<Integer> root=buildTree(pre,in);
+        //print(root);
     }
 
     // take level wise
