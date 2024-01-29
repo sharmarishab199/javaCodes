@@ -5,12 +5,12 @@ public class _2BinaryTree {
 
         // 1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
 
-        BinaryTreeNode<Integer> root = takeInputLevelWise();
+        //BinaryTreeNode<Integer> root = takeInputLevelWise();
         // printLevelWise(root);
         // System.out.println(countNodes(root));
         // System.out.println(sumNodes(root));
         // preorder(root);
-        inorder(root);
+        //inorder(root);
         // postorder(root);
         // System.out.println(largestNode(root));
         // System.out.println(nodeGreaterThanX(root, 5));
@@ -26,6 +26,10 @@ public class _2BinaryTree {
         // System.out.println(ans.isBal);
         // pair ans=diameterBetter(root);
         // System.out.println(ans.diameter);
+
+        int pre[]={1,2,4,5,3,6};
+        int in[]={4,2,5,1,6,3};
+        BinaryTreeNode<Integer> root=buildTree(pre,in);
         print(root);
     }
 
@@ -363,6 +367,47 @@ public class _2BinaryTree {
     }
 
     //make a tree from preorder and inorder
+    public static  BinaryTreeNode<Integer> buildTree(int pre[],int in[]){
+        return helper(pre, in, 0, pre.length-1, 0, in.length-1);
+    }
+    //helper
+    public static BinaryTreeNode<Integer> helper(int pre[],int in[],int siPre,int eiPre,int siIn,int eiIn){
+        if(siPre>eiPre)return null;
+
+        int rootData=pre[siPre];
+        BinaryTreeNode<Integer> root=new BinaryTreeNode<>(rootData);
+
+        int idxOfRootinInorder=findRoot(in,rootData,siIn,eiIn);
+
+        int siPreLeft=siPre+1;
+        int siInLeft=siIn;
+        int eiInLeft=idxOfRootinInorder-1;
+
+        int siInRight=idxOfRootinInorder+1;
+        int eiPreRight=eiPre;
+        int eiInRight=eiIn;
+
+        //from inorder as we are getting count of nodes in left and right subtree
+        int leftSubTreeLength=idxOfRootinInorder-siIn;
+
+        int eiPreLeft=siPreLeft+leftSubTreeLength-1;
+        int siPreRight=eiPreLeft+1;
+
+
+        BinaryTreeNode<Integer> left=helper(pre, in, siPreLeft, eiPreLeft, siInLeft, eiInLeft);
+        BinaryTreeNode<Integer> right=helper(pre, in,siPreRight, eiPreRight, siInRight, eiInRight);
+        root.left=left;
+        root.right=right;
+        return root;
+    }
+    //find root index in inorder
+    public static int findRoot(int []in,int rootData,int siIn,int eiIn){
+        for(int i=siIn;i<=eiIn;i++){
+            if(rootData==in[i])return i;
+        }
+        return -1;
+    }
+
     
 }
 
