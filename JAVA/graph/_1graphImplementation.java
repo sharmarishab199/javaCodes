@@ -17,11 +17,21 @@ public class _1graphImplementation{
         }
 
 
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                System.out.print(adjMatrix[i][j]+" ");
+        dftraversal(adjMatrix);
+    }
+
+    public static void dftraversal(int adjMatrix[][]) {
+        boolean visted[]=new boolean[adjMatrix.length];
+        dftraversal(adjMatrix,0,visted);
+    }
+    public static void dftraversal(int adjMatrix[][],int currentVertex,boolean visted[]){
+        System.out.print(currentVertex+" ");
+        visted[currentVertex]=true;
+        for(int i=0;i<adjMatrix.length;i++){   //next vertex to be visited  is to be false visted[i]==false
+            if(adjMatrix[currentVertex][i]==1&&visted[i]==false){
+                //i is neighbour of current vertex
+                dftraversal(adjMatrix,i,visted);
             }
-            System.out.println();
         }
     }
 }
