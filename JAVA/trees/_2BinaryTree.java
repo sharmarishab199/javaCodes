@@ -184,8 +184,8 @@ public class _2BinaryTree {
             return;
         // left right root
         postorder(root.left);
-        System.out.print(root.data + " ");
         postorder(root.right);
+        System.out.print(root.data + " ");
     }
 
     // largest node

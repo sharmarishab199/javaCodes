@@ -8,7 +8,7 @@ public class _30longestIncSub {
 
         incSubsequence(arr,arr.length,0,list,"");
 
-        System.out.println(max);
+        System.out.println(list);
     }
     public static void incSubsequence(int arr[],int n,int idx, ArrayList<String> list,String ans) {
         if(idx==n){

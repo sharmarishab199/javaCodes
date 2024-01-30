@@ -2,15 +2,24 @@ import java.util.*;
 
 public class _3BST{
     public static void main(String[] args) {
-        //BinaryTreeNode<Integer> root=takeInputLevelWise();
+
+        int arr[]={50,30,70,20,40,60,80};
+
+        BinaryTreeNode<Integer> root=null;
+        for(int i:arr){
+            root=takeInput(root,i);
+        }
         // 4 2 6 1 3 5 7 -1 -1 -1 -1 -1 -1 -1 -1
         //print(root);
         //System.out.println(findNodeBST(root, 7));
         //printBetweenK1K2(root,2,6);
 
-        int arr[]={1,2,3,4,5,6,7};
-        BinaryTreeNode<Integer> root=constructTree(arr, 0,arr.length-1);
-        print(root);
+        // int arr[]={1,2,3,4,5,6,7};
+        // BinaryTreeNode<Integer> root=constructTree(arr, 0,arr.length-1);
+        //print(root);
+        leftView(root);
+        rightView(root);
+        //System.out.println(isTarget(root, 15, 0));
 
     }
     //find node in BST
@@ -35,42 +44,20 @@ public class _3BST{
         if(root.data>k1)printBetweenK1K2(root.left, k1, k2);
     }
 
-    // take level wise
-    public static BinaryTreeNode<Integer> takeInputLevelWise() {
-        Scanner sc = new Scanner(System.in);
-        Queue<BinaryTreeNode<Integer>> pendingNodes = new LinkedList<>();
+    // take input
+    public static BinaryTreeNode<Integer> takeInput(BinaryTreeNode<Integer> root,int val) {
+        if(root==null){
+            root=new BinaryTreeNode<>(val);
+            return root;
+        }
 
-        System.out.println("Enter the Root data");
-
-        int rootData = sc.nextInt();
-        if (rootData == -1)
-            return null;// base case
-
-        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(rootData);
-        pendingNodes.add(root);
-
-        while (!pendingNodes.isEmpty()) {
-            BinaryTreeNode<Integer> font = pendingNodes.remove();
-
-            System.out.println("Enter the Left childeren of " + font.data);
-
-            int leftChild = sc.nextInt();
-            if (leftChild != -1) {
-                font.left = new BinaryTreeNode<>(leftChild);
-                pendingNodes.add(font.left);
-            }
-
-            System.out.println("Enter the Right childeren of " + font.data);
-
-            int rightChild = sc.nextInt();
-            if (rightChild != -1) {
-                font.right = new BinaryTreeNode<>(rightChild);
-                pendingNodes.add(font.right);
-            }
+        if(val<root.data){
+            root.left=takeInput(root.left, val);
+        }else{
+            root.right=takeInput(root.right, val);
         }
 
         return root;
-
     }
 
     // print
@@ -105,6 +92,37 @@ public class _3BST{
         return root;
     }                                                                                                            
 
+    //left view
+    public static void leftView(BinaryTreeNode<Integer> root){
+        if(root==null){
+            return;
+        }
+        System.out.print(root.data+" ");
+
+        leftView(root.left);
+    }
+    //right view
+    public static void rightView(BinaryTreeNode<Integer> root){
+        if(root==null){
+            return;
+        }
+        System.out.print(root.data+" ");
+
+        rightView(root.right);
+    }
+
+    //target
+    public static boolean isTarget(BinaryTreeNode<Integer> root,int target,int ans){
+        if(root==null){
+            if(target==ans)return true;
+            else return false;
+        }
+
+        boolean op1=isTarget(root.left, target, ans+root.data);
+        boolean op2=isTarget(root.right, target, ans+root.data);
+
+        return op1||op2;
+    }
 }
 class BinaryTreeNode<T> {
     T data;

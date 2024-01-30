@@ -1,37 +1,21 @@
 public class _28robot {
     public static void main(String[] args) {
-        int n = 2, m = 1;
+        int n = 3, m = 4;
         int arr[][] = {
-            {14},
-            {52}
+            {2 ,5 ,1 ,3 },
+            {3, 7 ,2 ,8},
+            {4, 8 ,3 ,4},
         };
-        int visited[][] = new int[n][m];
-        System.out.println(pathExplorer(n, m, 0, 0, arr, visited, arr[0][0]));
+        System.out.println(pathExplorer(n, m, 0, 0, arr, 0));
     }
 
-    public static int pathExplorer(int n, int m, int i, int j, int[][] arr, int[][] visited, int ans) {
-        if (i == n - 1 && j == m - 1) {
-            visited[i][j] = 1;
-            System.out.println(ans);
-            for (int u = 0; u < n; u++) {
-                for (int v = 0; v < m; v++) {
-                    System.out.print(visited[u][v]);
-                }
-                System.out.println();
-            }
-            System.out.println("*");
-            return ans;
-        }
+    public static int pathExplorer(int n, int m, int i, int j, int[][] arr, int ans) {
+        if(i==n-1&&j==m-1)return ans+arr[i][j];
 
-        if (i >= n || j >= m || visited[i][j] == 1) return 0;
+        if(i==n||j==m)return -1;
 
-        visited[i][j] = 1;
-
-        int op1 = pathExplorer(n, m, i, j + 1, arr, visited, ans + arr[i][j]);
-        int op2 = pathExplorer(n, m, i + 1, j, arr, visited, ans + arr[i][j]);
-
-        visited[i][j] = 0;
-
+        int op1=pathExplorer(n, m, i+1, j, arr, ans+arr[i][j]);
+        int op2=pathExplorer(n, m, i, j+1, arr, ans+arr[i][j]);
         return Math.max(op1, op2);
     }
 }
